@@ -31,6 +31,7 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         """
@@ -113,3 +114,16 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name']
+
+
+class Language(models.Model):
+    """
+    Model representing the language of a book.
+    """
+    name = models.CharField(max_length=50, help_text="Enter a book language (eg. English, French, Chinese, etc.)")
+
+    def __str__(self):
+        """
+        String for representing the Language model object.
+        """
+        return self.name
